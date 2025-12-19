@@ -1,15 +1,16 @@
+FROM redhat/ubi8:latest
 
-# TODO: check if this works, and consider replacing with alpine or something
-FROM ubuntu:22.04
+RUN dnf install -y curl && \
+    curl -fsSL https://rpm.nodesource.com/setup_24.x -o nodesource_setup.sh && \
+    bash nodesource_setup.sh && \
+    dnf install nodejs -y
+
+# NOTE: FROM node:24-alpine would also be fine in place of of the above -
+#       we just have a particular need to support the Red Hat UBI
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
-    nodejs \
-    npm \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY package*.json ./
+COPY package.json package-lock.json ./
 
 RUN npm install
 
