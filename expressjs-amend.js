@@ -11,9 +11,9 @@ for (const key in process.env) {
 }
 
 env_keys.sort(new Intl.Collator('en-US', {
-  numeric: true,
-  sensitivity: 'variant',
-  caseFirst: 'upper'
+    numeric: true,
+    sensitivity: 'variant',
+    caseFirst: 'upper'
 }).compare);
 
 const amend_rules = []
@@ -43,7 +43,7 @@ for (const key of env_keys) {
     try {
         path_regex = new RegExp(path_regex_token);
     } catch (err) {
-        console.error(`invalid regex pattern '${path_regex_token}'\n`, err);
+        console.error(`amend: invalid regex pattern '${path_regex_token}'\n`, err);
         process.exit(1);
     }
 
